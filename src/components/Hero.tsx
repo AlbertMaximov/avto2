@@ -104,9 +104,9 @@ export default function Hero() {
           </div>
 
           {/* Elegant connection form right under the picture */}
-          <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 sm:p-8 rounded-2xl shadow-sm">
-            <h3 className="text-sm font-display font-semibold text-slate-800 mb-4 tracking-tight flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+          <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white p-6 sm:p-8 rounded-2xl shadow-[0_15px_45px_rgba(37,99,235,0.15)] border border-blue-500/30">
+            <h3 className="text-sm font-display font-semibold text-white mb-4 tracking-tight flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-300 animate-pulse"></span>
               Запись на демонстрацию
             </h3>
             
@@ -116,7 +116,7 @@ export default function Hero() {
                   type="text" 
                   placeholder="Имя" 
                   required 
-                  className="w-full p-3 text-sm rounded-xl border border-white/60 bg-white/50 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+                  className="w-full p-3 text-sm rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваше имя.')}
@@ -128,7 +128,7 @@ export default function Hero() {
                   type="tel" 
                   placeholder="Телефон" 
                   required 
-                  className="w-full p-3 text-sm rounded-xl border border-white/60 bg-white/50 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+                  className="w-full p-3 text-sm rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваш номер телефона.')}
@@ -140,7 +140,7 @@ export default function Hero() {
                   type="email" 
                   placeholder="E-mail" 
                   required 
-                  className="w-full p-3 text-sm rounded-xl border border-white/60 bg-white/50 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+                  className="w-full p-3 text-sm rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваш адрес электронной почты.')}
@@ -150,21 +150,21 @@ export default function Hero() {
               <button 
                 type="submit"
                 disabled={status === 'submitting'}
-                className="sm:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl font-display font-semibold text-sm hover:shadow-[0_8px_25px_-8px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_35px_-6px_rgba(37,99,235,0.5)] border border-white/20 relative overflow-hidden group disabled:opacity-50 cursor-pointer text-center"
+                className="sm:col-span-2 bg-white text-blue-700 hover:bg-blue-50 py-3.5 rounded-xl font-display font-semibold text-sm hover:shadow-[0_8px_25px_-8px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_35px_-6px_rgba(255,255,255,0.3)] transition-all duration-300 border border-transparent relative overflow-hidden group disabled:opacity-50 cursor-pointer text-center"
               >
                 {/* Dynamic Sweep Light Effect */}
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-blue-600/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                 {status === 'submitting' ? 'Отправка...' : 'Записаться на демонстрацию'}
               </button>
             </form>
             
             {status === 'success' && (
-              <p className="text-xs text-emerald-600 mt-3 text-center font-medium transition-all">
+              <p className="text-xs text-emerald-300 mt-3 text-center font-medium transition-all">
                 ✓ Спасибо! Мы скоро с вами свяжемся.
               </p>
             )}
             {status === 'error' && (
-              <p className="text-xs text-red-500 mt-3 text-center font-medium transition-all">
+              <p className="text-xs text-rose-300 mt-3 text-center font-medium transition-all">
                 ✕ Произошла ошибка. Попробуйте еще раз.
               </p>
             )}

@@ -50,7 +50,7 @@ export default function CTASection() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 sm:p-10 rounded-3xl text-slate-900 grid md:grid-cols-2 gap-6 text-left shadow-[0_20px_50px_rgba(59,130,246,0.05)]"
+          className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white p-8 sm:p-10 rounded-3xl grid md:grid-cols-2 gap-6 text-left shadow-[0_20px_50px_rgba(37,99,235,0.15)] border border-blue-500/30"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-2">
@@ -58,7 +58,7 @@ export default function CTASection() {
               type="text" 
               placeholder="Имя" 
               required 
-              className="w-full p-4 rounded-xl border border-white/60 bg-white/40 backdrop-blur-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+              className="w-full p-4 rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваше имя.')}
@@ -70,7 +70,7 @@ export default function CTASection() {
               type="tel" 
               placeholder="Телефон" 
               required 
-              className="w-full p-4 rounded-xl border border-white/60 bg-white/40 backdrop-blur-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+              className="w-full p-4 rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваш номер телефона.')}
@@ -82,7 +82,7 @@ export default function CTASection() {
               type="email" 
               placeholder="E-mail" 
               required 
-              className="w-full p-4 rounded-xl border border-white/60 bg-white/40 backdrop-blur-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:bg-white/80 transition-all outline-none font-sans text-slate-800 placeholder:text-slate-400" 
+              className="w-full p-4 rounded-xl border border-blue-400/30 bg-blue-950/45 focus:ring-4 focus:ring-blue-300/20 focus:border-blue-300 focus:bg-blue-950/60 transition-all outline-none font-sans text-white placeholder:text-blue-200/60" 
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
               onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Пожалуйста, введите ваш адрес электронной почты.')}
@@ -92,14 +92,14 @@ export default function CTASection() {
           <button 
             type="submit"
             disabled={status === 'submitting'}
-            className="md:col-span-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-2xl font-display font-semibold text-lg transition-all duration-300 shadow-[0_12px_40px_-12px_rgba(37,99,235,0.4)] hover:shadow-[0_20px_50px_-10px_rgba(37,99,235,0.6)] border border-white/20 relative overflow-hidden group disabled:opacity-50 cursor-pointer text-center"
+            className="md:col-span-2 bg-white text-blue-700 hover:bg-blue-50 py-4 rounded-2xl font-display font-semibold text-lg transition-all duration-300 hover:shadow-[0_8px_25px_-8px_rgba(255,255,255,0.4)] hover:shadow-[0_15px_35px_-6px_rgba(255,255,255,0.3)] border border-transparent relative overflow-hidden group disabled:opacity-50 cursor-pointer text-center"
           >
             {/* Dynamic Sweep Light Effect */}
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-blue-600/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
             {status === 'submitting' ? 'Отправка...' : 'Записаться на демонстрацию'}
           </button>
-          {status === 'success' && <p className="md:col-span-2 text-emerald-600 text-center font-medium">Спасибо! Мы скоро с вами свяжемся.</p>}
-          {status === 'error' && <p className="md:col-span-2 text-red-500 text-center font-medium">Произошла ошибка. Попробуйте еще раз.</p>}
+          {status === 'success' && <p className="md:col-span-2 text-emerald-300 text-center font-medium">✓ Спасибо! Мы скоро с вами свяжемся.</p>}
+          {status === 'error' && <p className="md:col-span-2 text-rose-300 text-center font-medium">✕ Произошла ошибка. Попробуйте еще раз.</p>}
         </motion.form>
       </div>
     </section>

@@ -31,7 +31,7 @@ export default function Hero() {
       {/* Avant-garde Technological & Showroom Background Asset */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <img 
-          src="/src/assets/images/hero_ai_dealership_bg_1783927895414.jpg" 
+          src="/images/hero_bg.jpg" 
           alt="High-Tech AI Car Dealership Showroom Background" 
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover object-center opacity-100 contrast-[1.5] saturate-150 brightness-100 scale-[1.03] transition-transform duration-1000 ease-out"
@@ -97,8 +97,9 @@ export default function Hero() {
           {/* Main Hero Image - set with a majestic aspect ratio for maximum presence */}
           <div className="rounded-[28px] overflow-hidden aspect-[16/11] bg-slate-100 border border-white/80 shadow-md">
             <img 
-              src="/images/hero_image_new_1783438866896.jpg" 
+              src="/images/hero_image.jpg" 
               alt="AI in dealership" 
+              referrerPolicy="no-referrer"
               className="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition-transform duration-700 ease-out" 
             />
           </div>

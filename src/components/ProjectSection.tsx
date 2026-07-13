@@ -72,6 +72,7 @@ export default function ProjectSection({ project }: ProjectSectionProps) {
                 <img 
                   src={project.imagePath} 
                   alt={project.title} 
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                 />
               </div>

@@ -8,6 +8,7 @@ import Hero from './components/Hero';
 import ProjectSection from './components/ProjectSection';
 import ProcessSection from './components/ProcessSection';
 import CTASection from './components/CTASection';
+import Footer from './components/Footer';
 import { projects } from './data/projects';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         ))}
         <ProcessSection />
         <CTASection />
+        <Footer />
       </div>
     </div>
   );

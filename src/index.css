@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --color-primary: #0f172a;
+  --color-accent: #3b82f6;
+  
+  --animate-shimmer: shimmer 2.5s infinite;
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}

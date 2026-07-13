@@ -1,0 +1,8 @@
+{
+  "name": "Remix: AI-проекты для автодилеров 2",
+  "description": "Современные AI-решения для повышения эффективности и роста продаж в автодилерских центрах.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

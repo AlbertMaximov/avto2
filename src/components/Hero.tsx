@@ -34,11 +34,11 @@ export default function Hero() {
           src="/images/hero_bg.jpg" 
           alt="High-Tech AI Car Dealership Showroom Background" 
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center opacity-100 contrast-[1.5] saturate-150 brightness-100 scale-[1.03] transition-transform duration-1000 ease-out"
+          className="w-full h-full object-cover object-center opacity-65 contrast-[1.25] saturate-110 brightness-[0.98] scale-[1.03] transition-transform duration-1000 ease-out"
         />
         {/* Subtle architectural gradient masks for seamless flow integration */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/0 via-zinc-100/20 to-zinc-100/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/40 via-transparent to-blue-50/0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/5 via-zinc-100/30 to-zinc-100/92" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 via-transparent to-blue-50/10" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-20 items-center relative z-10">
@@ -50,7 +50,7 @@ export default function Hero() {
           <h1 className="text-5xl lg:text-7xl font-display font-bold text-slate-900 mb-8 tracking-tight leading-[1.05]">
             AI-проекты для <span className="text-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">автодилеров</span>
           </h1>
-          <p className="text-lg text-slate-600/90 mb-10 leading-relaxed font-sans font-light max-w-xl">
+          <p className="text-lg text-slate-900 mb-10 leading-relaxed font-sans font-medium max-w-xl">
             Разрабатываем проекты и внедряем искусственный интеллект.
             Внедряем ИИ в продажи, сервис и клиентскую поддержку.
             Сокращаем затраты, повышаем качество обслуживания и увеличиваем продажи.

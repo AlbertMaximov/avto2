@@ -20,7 +20,7 @@ export const projects: Project[] = [
       { icon: '📈', title: 'До +20% рост конверсии обращений', description: 'За счет быстрого выявления ошибок и обучения менеджеров.' }
     ],
     imagePrompt: 'modern car dealership call center, AI analyzing conversations on digital screens, neural network visualization, photorealistic, professional, high tech',
-    imagePath: '/images/call_quality.jpg?v=10'
+    imagePath: '/images/analytics_dashboard_view.jpg?v=1'
   },
   {
     id: 'car-seller',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
       { icon: '👥', title: 'До 50% меньше нагрузки на менеджеров', description: 'Сотрудники подключаются только к действительно заинтересованным клиентам.' }
     ],
     imagePrompt: 'modern digital car sales consultant helping a client on a large touchscreen in a sleek car showroom, holographic car models, photorealistic, futuristic, professional',
-    imagePath: '/images/car_seller.jpg?v=10'
+    imagePath: '/images/sales_manager_dashboard.jpg?v=1'
   },
   {
     id: 'car-finder',
@@ -61,7 +61,7 @@ export const projects: Project[] = [
       { icon: '🎯', title: 'Максимально точные рекомендации', description: 'AI учитывает реальные потребности клиента, а не только параметры фильтра.' }
     ],
     imagePrompt: 'client interacting with AI interface on a car dealer website, neural network suggesting car models with attractive cards, clean modern UI, photorealistic, high tech',
-    imagePath: '/images/car_finder.jpg?v=10'
+    imagePath: '/images/vehicle_selector_dashboard.jpg?v=1'
   },
   {
     id: 'service-assistant',
@@ -82,6 +82,6 @@ export const projects: Project[] = [
       { icon: '⏳', title: 'До 40% меньше времени сотрудников на консультации', description: 'AI берет на себя ответы на типовые вопросы клиентов.' }
     ],
     imagePrompt: 'service advisor using AI assistant, digital interface with analytics and подсказки on tablet, modern service department, photorealistic, high tech',
-    imagePath: '/images/service_assistant.jpg?v=10'
+    imagePath: '/images/service_department_dashboard.jpg?v=1'
   }
 ];

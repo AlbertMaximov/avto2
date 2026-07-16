@@ -8,9 +8,14 @@ dotenv.config();
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = parseInt(process.env.PORT || "3000", 10);
 
   app.use(express.json());
+
+  // Позволяет очень просто менять картинки прямо в папке на сервере без пересборки проекта.
+  // Express будет отдавать файлы напрямую из физической папки на диске.
+  app.use("/images", express.static(path.join(process.cwd(), "images")));
+  app.use("/images", express.static(path.join(process.cwd(), "public/images")));
 
   // API routes
   app.post("/api/contact", async (req, res) => {

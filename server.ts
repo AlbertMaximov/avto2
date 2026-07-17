@@ -3,8 +3,13 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -14,8 +19,32 @@ async function startServer() {
 
   // Позволяет очень просто менять картинки прямо в папке на сервере без пересборки проекта.
   // Express будет отдавать файлы напрямую из физической папки на диске.
-  app.use("/images", express.static(path.join(process.cwd(), "images")));
-  app.use("/images", express.static(path.join(process.cwd(), "public/images")));
+  // Мы проверяем несколько возможных путей, чтобы картинки открывались при любом способе запуска и деплоя сервера.
+  const possibleImageDirs = [
+    path.join(process.cwd(), "images"),
+    path.join(process.cwd(), "public/images"),
+    path.join(process.cwd(), "dist/images"),
+    path.resolve(__dirname, "images"),
+    path.resolve(__dirname, "../images"),
+    path.resolve(__dirname, "../public/images"),
+    path.resolve(__dirname, "public/images"),
+    path.resolve(__dirname, "../dist/images"),
+  ];
+
+  console.log("=== Checking image directories ===");
+  possibleImageDirs.forEach((dir) => {
+    try {
+      if (fs.existsSync(dir)) {
+        console.log(`[FOUND] Registering static route for /images -> ${dir}`);
+        app.use("/images", express.static(dir));
+      } else {
+        console.log(`[NOT FOUND] checked path: ${dir}`);
+      }
+    } catch (e) {
+      console.log(`[ERROR checking path] ${dir}:`, e);
+    }
+  });
+  console.log("==================================");
 
   // API routes
   app.post("/api/contact", async (req, res) => {
@@ -56,7 +85,19 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
+    // Определяем distPath динамически в зависимости от структуры папок на сервере
+    let distPath = path.join(process.cwd(), 'dist');
+    if (!fs.existsSync(distPath)) {
+      if (fs.existsSync(path.join(process.cwd(), 'index.html'))) {
+        distPath = process.cwd();
+      } else if (fs.existsSync(path.resolve(__dirname, 'index.html'))) {
+        distPath = path.resolve(__dirname);
+      } else if (fs.existsSync(path.resolve(__dirname, '../dist'))) {
+        distPath = path.resolve(__dirname, '../dist');
+      }
+    }
+
+    console.log(`[PRODUCTION] Serving SPA frontend from: ${distPath}`);
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));

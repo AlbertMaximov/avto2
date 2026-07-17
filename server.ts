@@ -8,8 +8,23 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let currentFilename = "";
+let currentDirname = "";
+
+try {
+  // В CommonJS __filename и __dirname доступны нативно
+  currentFilename = __filename;
+  currentDirname = __dirname;
+} catch (e) {
+  // В ESM (tsx) разрешаем их через import.meta.url
+  try {
+    currentFilename = fileURLToPath(import.meta.url);
+    currentDirname = path.dirname(currentFilename);
+  } catch (err) {
+    currentFilename = process.cwd();
+    currentDirname = process.cwd();
+  }
+}
 
 async function startServer() {
   const app = express();
@@ -17,34 +32,39 @@ async function startServer() {
 
   app.use(express.json());
 
-  // Позволяет очень просто менять картинки прямо в папке на сервере без пересборки проекта.
-  // Express будет отдавать файлы напрямую из физической папки на диске.
-  // Мы проверяем несколько возможных путей, чтобы картинки открывались при любом способе запуска и деплоя сервера.
-  const possibleImageDirs = [
-    path.join(process.cwd(), "images"),
-    path.join(process.cwd(), "public/images"),
-    path.join(process.cwd(), "dist/images"),
-    path.resolve(__dirname, "images"),
-    path.resolve(__dirname, "../images"),
-    path.resolve(__dirname, "../public/images"),
-    path.resolve(__dirname, "public/images"),
-    path.resolve(__dirname, "../dist/images"),
-  ];
-
-  console.log("=== Checking image directories ===");
-  possibleImageDirs.forEach((dir) => {
-    try {
-      if (fs.existsSync(dir)) {
-        console.log(`[FOUND] Registering static route for /images -> ${dir}`);
-        app.use("/images", express.static(dir));
-      } else {
-        console.log(`[NOT FOUND] checked path: ${dir}`);
-      }
-    } catch (e) {
-      console.log(`[ERROR checking path] ${dir}:`, e);
+  // Динамически ищет картинки при каждом запросе в возможных папках на сервере.
+  // Это позволяет пользователю очень просто менять картинки "на лету" без перезапуска сервера
+  // и без пересборки проекта, просто положив их в любую из указанных папок.
+  app.get("/images/*", (req, res, next) => {
+    const relativePath = req.params[0];
+    if (!relativePath) {
+      return next();
     }
+
+    const possibleDirs = [
+      path.join(process.cwd(), "images"),
+      path.join(process.cwd(), "public/images"),
+      path.join(process.cwd(), "dist/images"),
+      path.resolve(currentDirname, "images"),
+      path.resolve(currentDirname, "../images"),
+      path.resolve(currentDirname, "../public/images"),
+      path.resolve(currentDirname, "public/images"),
+      path.resolve(currentDirname, "../dist/images"),
+    ];
+
+    for (const dir of possibleDirs) {
+      const filePath = path.join(dir, relativePath);
+      try {
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          return res.sendFile(filePath);
+        }
+      } catch (e) {
+        // Игнорируем ошибки доступа к путям
+      }
+    }
+
+    next();
   });
-  console.log("==================================");
 
   // API routes
   app.post("/api/contact", async (req, res) => {
@@ -90,10 +110,10 @@ async function startServer() {
     if (!fs.existsSync(distPath)) {
       if (fs.existsSync(path.join(process.cwd(), 'index.html'))) {
         distPath = process.cwd();
-      } else if (fs.existsSync(path.resolve(__dirname, 'index.html'))) {
-        distPath = path.resolve(__dirname);
-      } else if (fs.existsSync(path.resolve(__dirname, '../dist'))) {
-        distPath = path.resolve(__dirname, '../dist');
+      } else if (fs.existsSync(path.resolve(currentDirname, 'index.html'))) {
+        distPath = path.resolve(currentDirname);
+      } else if (fs.existsSync(path.resolve(currentDirname, '../dist'))) {
+        distPath = path.resolve(currentDirname, '../dist');
       }
     }
 

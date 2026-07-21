@@ -75,11 +75,13 @@ async function startServer() {
     }
 
     try {
-      // Поддерживаем как простую конфигурацию (Gmail по умолчанию),
-      // так и продвинутую SMTP-настройку для корпоративных доменов (@aimaks.ru) через переменные окружения.
-      const smtpHost = process.env.EMAIL_HOST;
-      const smtpPort = parseInt(process.env.EMAIL_PORT || "465", 10);
-      const smtpSecure = process.env.EMAIL_SECURE !== "false"; // По умолчанию true (SSL/TLS)
+      // Поддерживаем конфигурацию SMTP через переменные окружения SMTP_*, а также старый формат EMAIL_* для совместимости.
+      const smtpHost = process.env.SMTP_HOST || process.env.EMAIL_HOST;
+      const smtpPort = parseInt(process.env.SMTP_PORT || process.env.EMAIL_PORT || "465", 10);
+      const smtpSecure = process.env.SMTP_SECURE !== "false" && process.env.SMTP_PORT !== "587"; // По умолчанию true (SSL/TLS для 465)
+      const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
+      const smtpPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+      const smtpFrom = process.env.SMTP_FROM || smtpUser || "info@aimaks.ru";
 
       let transporter;
 
@@ -89,26 +91,27 @@ async function startServer() {
           port: smtpPort,
           secure: smtpSecure,
           auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: smtpUser,
+            pass: smtpPass,
           },
         });
       } else {
-        // Резервный вариант для Gmail, если EMAIL_HOST не задан
+        // Резервный вариант для Gmail, если SMTP_HOST не задан
         transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: smtpUser,
+            pass: smtpPass,
           },
         });
       }
 
       await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: smtpFrom,
         to: "aialmaxxx@gmail.com",
         subject: "Новая заявка на демонстрацию",
         text: `Имя: ${name}\nТелефон: ${phone}\nEmail: ${email}`,
+        replyTo: email,
       });
 
       res.status(200).json({ message: "Email sent successfully" });

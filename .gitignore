@@ -6,8 +6,3 @@ coverage/
 *.log
 .env*
 !.env.example
-# Server optimized images
-public/images/
-dist/images/
-images/
-images_bad/

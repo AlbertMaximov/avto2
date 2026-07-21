@@ -75,13 +75,34 @@ async function startServer() {
     }
 
     try {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
+      // Поддерживаем как простую конфигурацию (Gmail по умолчанию),
+      // так и продвинутую SMTP-настройку для корпоративных доменов (@aimaks.ru) через переменные окружения.
+      const smtpHost = process.env.EMAIL_HOST;
+      const smtpPort = parseInt(process.env.EMAIL_PORT || "465", 10);
+      const smtpSecure = process.env.EMAIL_SECURE !== "false"; // По умолчанию true (SSL/TLS)
+
+      let transporter;
+
+      if (smtpHost) {
+        transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpSecure,
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+      } else {
+        // Резервный вариант для Gmail, если EMAIL_HOST не задан
+        transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+      }
 
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
